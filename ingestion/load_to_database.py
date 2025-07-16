@@ -1,13 +1,11 @@
 """Load raw data from API to PostgreSQL bronze layer."""
 
-import json
 import logging
-from datetime import datetime
-from typing import List, Dict
-import psycopg2
-from psycopg2.extras import Json
 import os
+
+import psycopg2
 from dotenv import load_dotenv
+from psycopg2.extras import Json
 
 load_dotenv()
 
@@ -20,18 +18,18 @@ class PostgresLoader:
 
     def __init__(self):
         self.conn_params = {
-            "host": os.getenv("DB_HOST", "localhost"),
-            "port": os.getenv("DB_PORT", "5432"),
-            "database": os.getenv("DB_NAME", "fao"),
-            "user": os.getenv("DB_USER", "mickey"),
-            "password": os.getenv("DB_PASSWORD"),
+            "host": os.getenv("LOCAL_DB_HOST", "localhost"),
+            "port": os.getenv("LOCAL_DB_PORT", "5432"),
+            "database": os.getenv("LOCAL_DB_NAME", "fao"),
+            "user": os.getenv("LOCAL_DB_USER", "mickey"),
+            "password": os.getenv("LOCAL_DB_PASSWORD"),
         }
 
     def get_connection(self):
         """Get PostgreSQL connection."""
         return psycopg2.connect(**self.conn_params)
 
-    def load_to_bronze(self, data: List[Dict], table_name: str, source_url: str, api_endpoint: str):
+    def load_to_bronze(self, data: list[dict], table_name: str, source_url: str, api_endpoint: str):
         """
         Load raw JSON data to bronze layer table.
 

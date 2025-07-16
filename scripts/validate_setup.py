@@ -3,13 +3,12 @@
 import os
 import sys
 from pathlib import Path
-import importlib.util
 
 
 def check_python_version():
     """Check if Python version is 3.8+"""
     print("🐍 Checking Python version...", end=" ")
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 8):  # noqa: UP036
         print(f"✅ {sys.version.split()[0]}")
         return True
     else:
@@ -29,16 +28,25 @@ def check_env_file():
     from dotenv import dotenv_values
 
     config = dotenv_values(".env")
-    required = ["DB_USER", "DB_PASSWORD", "DB_HOST", "DB_PORT", "DB_NAME"]
+    required = [
+        "LOCAL_DB_USER",
+        "LOCAL_DB_PASSWORD",
+        "LOCAL_DB_HOST",
+        "LOCAL_DB_PORT",
+        "LOCAL_DB_NAME",
+        "REMOTE_DB_USER",
+        "REMOTE_DB_PASSWORD",
+        "REMOTE_DB_HOST",
+        "REMOTE_DB_PORT",
+        "REMOTE_DB_NAME",
+        "FAO_API_BASE_URL",
+        "PRICES_ENDPOINT",
+        "FOOD_BALANCE_ENDPOINT",
+    ]
     missing = [var for var in required if not config.get(var)]
 
     if missing:
         print(f"❌ Missing variables: {', '.join(missing)}")
-        return False
-
-    if config.get("DB_PASSWORD") == "your_password_here":
-        print("❌ DB_PASSWORD not updated")
-        print("   → Update DB_PASSWORD in .env file")
         return False
 
     print("✅ Found and configured")
@@ -74,7 +82,7 @@ def check_required_files():
         "requirements.txt",
         "sql/create_schemas.sql",
         "ingestion/api_client.py",
-        "ingestion/load_to_postgres.py",
+        "ingestion/load_to_database.py",
         "orchestration/elt_pipeline.py",
         "dbt_project/dbt_project.yml",
         "dbt_project/profiles.yml",
@@ -91,30 +99,42 @@ def check_required_files():
 
 def check_database_connection():
     """Test PostgreSQL connection."""
-    print("🗄️  Checking database connection...", end=" ")
     try:
         import psycopg2
         from dotenv import load_dotenv
 
         load_dotenv()
 
-        conn = psycopg2.connect(
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT"),
-            database=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
+        print("🗄️  Checking local database connection...", end=" ")
+        local_conn = psycopg2.connect(
+            host=os.getenv("LOCAL_DB_HOST"),
+            port=os.getenv("LOCAL_DB_PORT"),
+            database=os.getenv("LOCAL_DB_NAME"),
+            user=os.getenv("LOCAL_DB_USER"),
+            password=os.getenv("LOCAL_DB_PASSWORD"),
         )
-        conn.close()
-        print("✅ Connected successfully")
+        print("✅ Connected successfully to local database")
+        local_conn.close()
+
+        print("🗄️  Checking remote database connection...", end=" ")
+        remote_conn = psycopg2.connect(
+            host=os.getenv("REMOTE_DB_HOST"),
+            port=os.getenv("REMOTE_DB_PORT"),
+            database=os.getenv("REMOTE_DB_NAME"),
+            user=os.getenv("REMOTE_DB_USER"),
+            password=os.getenv("REMOTE_DB_PASSWORD"),
+        )
+        print("✅ Connected successfully to remote database")
+        remote_conn.close()
+
         return True
     except ImportError:
         print("❌ psycopg2 not installed")
         print("   → Run: pip install -r requirements.txt")
         return False
     except Exception as e:
-        print(f"❌ Connection failed")
-        print(f"   → Error: {str(e)}")
+        print("❌ Connection failed")
+        print(f"   → Error: {e!s}")
         return False
 
 
@@ -124,7 +144,9 @@ def check_api_connectivity():
     try:
         import requests
 
-        response = requests.get("https://kw2aqt7p3p.us-west-2.awsapprunner.com/v1/prices/prices/?limit=1", timeout=5)
+        response = requests.get(
+            "https://kw2aqt7p3p.us-west-2.awsapprunner.com/v1/prices/prices/?limit=1", timeout=5
+        )
         if response.status_code == 200:
             print("✅ API accessible")
             return True
@@ -152,7 +174,7 @@ def main():
         check_api_connectivity(),
     ]
 
-    print(f"\n{'='*50}")
+    print(f"\n{'=' * 50}")
     passed = sum(checks)
     total = len(checks)
 

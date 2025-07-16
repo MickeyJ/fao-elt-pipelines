@@ -1,11 +1,4 @@
-{{
-    config(
-        materialized='table',
-        indexes=[
-            {'columns': ['country_name'], 'type': 'btree'}
-        ]
-    )
-}}
+
 
 WITH country_production AS (
     SELECT
@@ -14,7 +7,7 @@ WITH country_production AS (
         year,
         SUM(production_metric_tons) as annual_production,
         COUNT(DISTINCT item_code) as products_produced
-    FROM {{ ref('silver_production_cleaned') }}
+    FROM "fao"."public_silver"."silver_production_cleaned"
     WHERE is_valid_production = TRUE
     GROUP BY country_name_standardized, area_code, year
 ),
@@ -26,7 +19,7 @@ country_prices AS (
         year,
         AVG(price_value) as avg_annual_price,
         COUNT(DISTINCT item_code) as products_priced
-    FROM {{ ref('silver_prices_cleaned') }}
+    FROM "fao"."public_silver"."silver_prices_cleaned"
     WHERE is_valid_price = TRUE
     GROUP BY country_name_standardized, area_code, year
 ),

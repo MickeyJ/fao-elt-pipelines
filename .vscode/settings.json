@@ -1,5 +1,5 @@
 {
-  "python.defaultInterpreterPath": "${env:HOME}/miniconda3/envs/elt-pipelines/bin/python",
+  "python.defaultInterpreterPath": "~/miniconda3/envs/elt-pipelines/bin/python",
   "python.terminal.activateEnvironment": true,
   // Use Ruff for Python formatting and linting
   "[python]": {
@@ -49,10 +49,10 @@
   
   // Terminal settings
   "terminal.integrated.env.osx": {
-    "PATH": "${env:HOME}/miniconda3/bin:${env:PATH}"
+    "PATH": "~/miniconda3/bin:${env:PATH}"
   },
   "terminal.integrated.env.linux": {
-    "PATH": "${env:HOME}/miniconda3/bin:${env:PATH}"
+    "PATH": "~/miniconda3/bin:${env:PATH}"
   },
   "terminal.integrated.env.windows": {
     "PATH": "${env:USERPROFILE}\\miniconda3\\Scripts;${env:USERPROFILE}\\miniconda3;${env:PATH}"
@@ -67,7 +67,7 @@
   
   // Editor settings
   "editor.rulers": [120],
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "off",
   
   // Git settings
   "git.ignoreLimitWarning": true
