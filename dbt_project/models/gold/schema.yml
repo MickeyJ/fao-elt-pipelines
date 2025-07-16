@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: gold_country_metrics
+    description: "Comprehensive country-level agricultural metrics"
+    columns:
+      - name: country_name
+        description: "Standardized country name"
+        tests:
+          - not_null
+          - unique
+      - name: producer_category
+        description: "Classification based on production volume"
+        tests:
+          - accepted_values:
+              values: ['Major Producer', 'Medium Producer', 'Small Producer']
+      - name: production_trend
+        description: "Long-term production trend"
+        tests:
+          - accepted_values:
+              values: ['Growing', 'Declining', 'Stable']
+
+  - name: gold_price_production_analysis
+    description: "Commodity-level analysis combining price and production data"
+    columns:
+      - name: item_name
+        description: "Agricultural commodity name"
+        tests:
+          - not_null
+      - name: commodity_scale
+        description: "Classification based on global production volume"
+        tests:
+          - accepted_values:
+              values: ['Major Commodity', 'Medium Commodity', 'Minor Commodity']
+      - name: price_tier
+        description: "Classification based on average price"
+        tests:
+          - accepted_values:
+              values: ['Premium Product', 'Standard Product', 'Basic Product']
+
+  - name: gold_regional_summary
+    description: "Regional aggregations of agricultural production and value"
+    columns:
+      - name: region
+        description: "World region"
+        tests:
+          - not_null
+          - unique
+      - name: regional_scale
+        description: "Classification based on regional production"
+        tests:
+          - accepted_values:
+              values: ['Major Agricultural Region', 'Medium Agricultural Region', 'Minor Agricultural Region']

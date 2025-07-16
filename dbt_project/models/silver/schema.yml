@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: silver_prices_cleaned
+    description: "Cleaned and standardized price data"
+    columns:
+      - name: price_id
+        description: "Unique identifier for price record"
+        tests:
+          - unique
+          - not_null
+      - name: price_value
+        description: "Price in USD per tonne"
+        tests:
+          - not_null
+      - name: is_valid_price
+        description: "Data quality flag"
+        tests:
+          - accepted_values:
+              values: [true, false]
+      - name: year
+        description: "Year of the price data"
+        tests:
+          - not_null
+
+  - name: silver_production_cleaned
+    description: "Cleaned and standardized production data"
+    columns:
+      - name: production_id
+        description: "Unique identifier for production record"
+        tests:
+          - unique
+          - not_null
+      - name: production_value
+        description: "Production value in original units"
+        tests:
+          - not_null
+      - name: production_metric_tons
+        description: "Production normalized to metric tons"
+        tests:
+          - not_null
+      - name: is_valid_production
+        description: "Data quality flag"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: silver_top_countries
+    description: "Rankings of countries by production and price metrics"
+    columns:
+      - name: country_name
+        description: "Standardized country name"
+        tests:
+          - not_null
+      - name: area_code
+        description: "FAO area code"
+        tests:
+          - not_null

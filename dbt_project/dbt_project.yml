@@ -1,0 +1,48 @@
+name: 'fao_elt_pipeline'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'fao_elt_pipeline'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Model configurations
+models:
+  fao_elt_pipeline:
+    # Bronze layer configs
+    bronze:
+      +materialized: view
+      +schema: bronze
+
+    # Silver layer configs
+    silver:
+      +materialized: table
+      +schema: silver
+      +tags: ['silver']
+
+    # Gold layer configs
+    gold:
+      +materialized: table
+      +schema: gold
+      +tags: ['gold']
+
+# Test configurations
+tests:
+  +severity: warn  # Default test severity
+
+# Documentation
+vars:
+  # Variables that can be used across the project
+  start_date: '2010-01-01'
+  end_date: '2024-12-31'

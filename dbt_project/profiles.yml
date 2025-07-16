@@ -1,0 +1,24 @@
+fao_elt_pipeline:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
+      port: "{{ env_var('DB_PORT', '5432') | int }}"
+      user: "{{ env_var('DB_USER', 'mickey') }}"
+      pass: "{{ env_var('DB_PASSWORD') }}"
+      dbname: "{{ env_var('DB_NAME', 'fao') }}"
+      schema: public  # Default schema, will be overridden by model configs
+      threads: 4
+      keepalives_idle: 0
+
+    prod:
+      type: postgres
+      host: "{{ env_var('DB_HOST', 'localhost') }}"
+      port: "{{ env_var('DB_PORT', '5432') | int }}"
+      user: "{{ env_var('DB_USER', 'mickey') }}"
+      pass: "{{ env_var('DB_PASSWORD') }}"
+      dbname: "{{ env_var('DB_NAME', 'fao') }}"
+      schema: public
+      threads: 8
+      keepalives_idle: 0

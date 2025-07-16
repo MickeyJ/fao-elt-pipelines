@@ -1,0 +1,3 @@
+# This directory is for dbt seed files
+# Seed files are CSV files that dbt can load into your data warehouse
+# For example: country_region_mapping.csv

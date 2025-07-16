@@ -1,0 +1,6 @@
+# dbt packages configuration
+# Currently using custom macros instead of external packages
+# To add dbt-utils in the future, uncomment below:
+# packages:
+#   - package: dbt-labs/dbt_utils
+#     version: 1.1.1

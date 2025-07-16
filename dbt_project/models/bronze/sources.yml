@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: bronze_fao
+    description: "Raw FAO data from API endpoints"
+    database: fao
+    schema: bronze
+    tables:
+      - name: raw_prices
+        description: "Raw producer prices data from FAO API"
+        columns:
+          - name: id
+            description: "Primary key"
+          - name: data
+            description: "JSONB column containing raw API response data"
+          - name: loaded_at
+            description: "Timestamp when data was loaded"
+          - name: source_url
+            description: "API source URL"
+          - name: api_endpoint
+            description: "Specific API endpoint used"
+
+      - name: raw_food_balance
+        description: "Raw food balance sheets data from FAO API"
+        columns:
+          - name: id
+            description: "Primary key"
+          - name: data
+            description: "JSONB column containing raw API response data"
+          - name: loaded_at
+            description: "Timestamp when data was loaded"
+          - name: source_url
+            description: "API source URL"
+          - name: api_endpoint
+            description: "Specific API endpoint used"
