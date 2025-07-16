@@ -1,0 +1,31 @@
+{
+  "recommendations": [
+    // Python essentials
+    "ms-python.python",
+    "charliermarsh.ruff",
+    
+    // Database tools
+    "ms-azuretools.vscode-postgresql",
+    
+    // dbt support
+    "dbt-labs.dbt-power-user",
+    
+    // Git
+    "eamodio.gitlens",
+    
+    // General productivity
+    "streetsidesoftware.code-spell-checker",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+    
+    // File icons
+    "vscode-icons-team.vscode-icons",
+    
+    // Environment files
+    "mikestead.dotenv",
+    
+    // YAML/TOML support
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml"
+  ]
+}

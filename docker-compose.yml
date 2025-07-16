@@ -2,6 +2,9 @@ version: '3.8'
 
 services:
   postgres:
+    env_file:
+      - .env.local
+    restart: always
     image: postgres:15
     container_name: fao_postgres
     environment:

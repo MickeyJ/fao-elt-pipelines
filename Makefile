@@ -1,4 +1,4 @@
-include .env
+include .env.local
 export
 
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
@@ -51,11 +51,6 @@ install-init:
 	$(ACTIVATE) $(PYTHON) -m piptools compile requirements.in
 	$(ACTIVATE) $(PYTHON) -m piptools sync requirements.txt
 
-install:
-	grep "^${pkg}" requirements.in || (echo "" >> requirements.in && echo "${pkg}" >> requirements.in)
-	$(ACTIVATE) $(PYTHON) -m piptools compile requirements.in
-	$(ACTIVATE) $(PYTHON) -m piptools sync requirements.txt
-
 install-update:
 	$(ACTIVATE) $(PYTHON) -m piptools compile requirements.in
 	$(ACTIVATE) $(PYTHON) -m piptools sync requirements.txt
@@ -74,3 +69,14 @@ use-remote-db:
 use-local-db:
 	cp .env.local .env
 	@echo "Switched to LOCAL database"
+
+
+start-postgres:
+	docker-compose --env-file .env.local up -d postgres
+
+stop-postgres:
+	docker compose down
+
+
+
+

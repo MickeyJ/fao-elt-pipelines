@@ -1,10 +1,10 @@
 """FAO API Client for fetching data from endpoints."""
 
-import requests
 import logging
-from typing import Dict, List, Optional
 import time
 from urllib.parse import urljoin
+
+import requests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ class FAOApiClient:
         self.base_url = base_url
         self.session = requests.Session()
 
-    def fetch_data(self, endpoint: str, max_pages: int = 5) -> List[Dict]:
+    def fetch_data(self, endpoint: str, max_pages: int = 5) -> list[dict]:
         """
         Fetch data from API with pagination support.
 
@@ -32,10 +32,7 @@ class FAOApiClient:
         page = 1
 
         # Build full URL
-        if endpoint.startswith("http"):
-            url = endpoint
-        else:
-            url = urljoin(self.base_url, endpoint)
+        url = endpoint if endpoint.startswith("http") else urljoin(self.base_url, endpoint)
 
         while page <= max_pages:
             try:
@@ -65,12 +62,12 @@ class FAOApiClient:
         logger.info(f"Fetched {len(all_data)} records in total")
         return all_data
 
-    def fetch_prices_data(self, max_pages: int = 3) -> List[Dict]:
+    def fetch_prices_data(self, max_pages: int = 3) -> list[dict]:
         """Fetch producer prices data."""
         endpoint = "/prices/prices/?element_code=5532&element=&flag=A&sort=year%2Citem_code"
         return self.fetch_data(endpoint, max_pages)
 
-    def fetch_food_balance_data(self, max_pages: int = 3) -> List[Dict]:
+    def fetch_food_balance_data(self, max_pages: int = 3) -> list[dict]:
         """Fetch food balance sheets data."""
         endpoint = "/food/food_balance_sheets/?element_code=5511&flag=&sort=year%2Citem_code"
         return self.fetch_data(endpoint, max_pages)
