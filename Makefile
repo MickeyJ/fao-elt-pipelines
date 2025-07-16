@@ -81,6 +81,9 @@ pg-logs:
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
 #  		Pipeline Commands
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
+prefect-start:
+	prefect server start
+
 pipeline-full:
 	$(ACTIVATE) $(PYTHON) orchestration/elt_pipeline.py
 
