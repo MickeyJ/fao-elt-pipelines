@@ -1,0 +1,1 @@
+{{ test_accepted_values(column_name="is_valid_production", model=get_where_subquery(ref('silver_production_cleaned')), values=[true,false]) }}

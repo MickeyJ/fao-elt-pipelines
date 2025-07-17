@@ -1,0 +1,1 @@
+{{ test_accepted_values(column_name="commodity_scale", model=get_where_subquery(ref('gold_price_production_analysis')), values=["Major Commodity","Medium Commodity","Minor Commodity"]) }}

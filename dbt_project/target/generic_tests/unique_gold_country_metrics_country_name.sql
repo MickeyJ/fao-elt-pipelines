@@ -1,0 +1,1 @@
+{{ test_unique(column_name="country_name", model=get_where_subquery(ref('gold_country_metrics'))) }}

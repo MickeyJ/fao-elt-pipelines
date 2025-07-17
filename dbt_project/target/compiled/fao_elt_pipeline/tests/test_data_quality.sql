@@ -12,5 +12,5 @@ FROM (
 ) AS required_countries(country_name)
 WHERE country_name NOT IN (
     SELECT DISTINCT country_name_standardized
-    FROM "fao"."public_silver"."silver_production_cleaned"
+    FROM "fao"."public"."silver_production_cleaned"
 )

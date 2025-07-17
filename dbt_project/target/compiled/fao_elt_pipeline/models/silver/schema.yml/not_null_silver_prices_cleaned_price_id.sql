@@ -5,7 +5,7 @@
 
 
 select price_id
-from "fao"."public_silver"."silver_prices_cleaned"
+from "fao"."public"."silver_prices_cleaned"
 where price_id is null
 
 

@@ -1,0 +1,1 @@
+{{ test_accepted_values(column_name="producer_category", model=get_where_subquery(ref('gold_country_metrics')), values=["Major Producer","Medium Producer","Small Producer"]) }}

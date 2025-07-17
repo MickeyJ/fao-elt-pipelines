@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="production_metric_tons", model=get_where_subquery(ref('silver_production_cleaned'))) }}

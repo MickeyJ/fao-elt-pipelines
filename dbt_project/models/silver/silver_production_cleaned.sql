@@ -34,7 +34,7 @@ flattened_production AS (
 )
 
 SELECT
-    {{ generate_surrogate_key(['area_code', 'item_code', 'year']) }} as production_id,
+    {{ generate_surrogate_key(['area_code', 'element_code', 'item_code', 'year'])  }} as production_id,
     country_name,
     area_code,
     area_code_m49,

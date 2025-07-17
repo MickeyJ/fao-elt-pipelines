@@ -9,7 +9,7 @@ WITH production_rankings AS (
         COUNT(DISTINCT year) as years_of_data,
         AVG(production_metric_tons) as avg_annual_production,
         MAX(year) as latest_year
-    FROM "fao"."public_silver"."silver_production_cleaned"
+    FROM "fao"."public"."silver_production_cleaned"
     WHERE is_valid_production = TRUE
     GROUP BY country_name_standardized, area_code
 ),
@@ -22,7 +22,7 @@ price_rankings AS (
         COUNT(DISTINCT item_code) as items_with_prices,
         MAX(price_value) as max_price,
         MIN(price_value) as min_price
-    FROM "fao"."public_silver"."silver_prices_cleaned"
+    FROM "fao"."public"."silver_prices_cleaned"
     WHERE is_valid_price = TRUE
     GROUP BY country_name_standardized, area_code
 ),

@@ -17,7 +17,9 @@ from ingestion.load_to_database import PostgresLoader
 load_dotenv(override=True)
 
 # Configuration
-API_BASE_URL = os.getenv("FAO_API_BASE_URL", "https://kw2aqt7p3p.us-west-2.awsapprunner.com/v1")
+API_BASE_URL = os.getenv("FAO_API_BASE_URL", "")
+PRICES_ENDPOINT = os.getenv("PRICES_ENDPOINT", "")
+FOOD_BALANCE_ENDPOINT = os.getenv("FOOD_BALANCE_ENDPOINT", "")
 DBT_PROJECT_PATH = Path(__file__).parent.parent / "dbt_project"
 ALLOWED_DBT_TARGETS = ["dev", "prod", "test"]
 
@@ -35,7 +37,7 @@ def extract_prices_data(max_pages: int = 3) -> list:
     logger.info(f"Starting prices data extraction (max_pages={max_pages})")
 
     client = FAOApiClient(API_BASE_URL)
-    data = client.fetch_prices_data(max_pages=max_pages)
+    data = client.fetch_endpoint_data(PRICES_ENDPOINT, max_pages=max_pages)
 
     logger.info(f"Extracted {len(data)} price records")
     return data
@@ -48,7 +50,7 @@ def extract_food_balance_data(max_pages: int = 3) -> list:
     logger.info(f"Starting food balance data extraction (max_pages={max_pages})")
 
     client = FAOApiClient(API_BASE_URL)
-    data = client.fetch_food_balance_data(max_pages=max_pages)
+    data = client.fetch_endpoint_data(FOOD_BALANCE_ENDPOINT, max_pages=max_pages)
 
     logger.info(f"Extracted {len(data)} food balance records")
     return data

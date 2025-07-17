@@ -8,7 +8,7 @@ with all_values as (
         is_valid_price as value_field,
         count(*) as n_records
 
-    from "fao"."public_silver"."silver_prices_cleaned"
+    from "fao"."public"."silver_prices_cleaned"
     group by is_valid_price
 
 )

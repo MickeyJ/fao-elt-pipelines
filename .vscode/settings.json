@@ -1,5 +1,6 @@
 {
-  "python.defaultInterpreterPath": "~/miniconda3/envs/elt-pipelines/bin/python",
+  // "python.defaultInterpreterPath": "~/miniconda3/envs/elt-pipelines/bin/python",
+  "python.defaultInterpreterPath": "~/conda/envs/elt-pipelines/python.exe",
   "python.terminal.activateEnvironment": true,
   // Use Ruff for Python formatting and linting
   "[python]": {
@@ -10,23 +11,23 @@
       "source.organizeImports": "explicit"
     }
   },
-  
+
   // Ruff configuration
   "ruff.configurationPreference": "filesystemFirst",
   "ruff.nativeServer": "on",
-  
+
   // SQL formatting for dbt files
   "[sql]": {
     "editor.formatOnSave": false,  // SQL formatting can break dbt macros
     "editor.tabSize": 4
   },
-  
+
   // File associations
   "files.associations": {
     "*.sql": "sql",
     "requirements.in": "pip-requirements"
   },
-  
+
   // Exclude directories from search and file explorer
   "files.exclude": {
     "**/__pycache__": true,
@@ -38,7 +39,7 @@
     "dbt_project/dbt_packages": true,
     "dbt_project/logs": true
   },
-  
+
   // Search exclusions
   "search.exclude": {
     "**/venv": true,
@@ -46,29 +47,31 @@
     "dbt_project/target": true,
     "*.log": true
   },
-  
+
   // Terminal settings
   "terminal.integrated.env.osx": {
+    "python.defaultInterpreterPath": "~/miniconda3/envs/elt-pipelines/bin/python",
     "PATH": "~/miniconda3/bin:${env:PATH}"
   },
   "terminal.integrated.env.linux": {
     "PATH": "~/miniconda3/bin:${env:PATH}"
   },
   "terminal.integrated.env.windows": {
+    "python.defaultInterpreterPath": "~/conda/envs/elt-pipelines/python.exe",
     "PATH": "${env:USERPROFILE}\\miniconda3\\Scripts;${env:USERPROFILE}\\miniconda3;${env:PATH}"
   },
-  
+
   // Python testing
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "python.testing.pytestArgs": [
     "tests"
   ],
-  
+
   // Editor settings
   "editor.rulers": [120],
   "editor.wordWrap": "off",
-  
+
   // Git settings
   "git.ignoreLimitWarning": true
 }

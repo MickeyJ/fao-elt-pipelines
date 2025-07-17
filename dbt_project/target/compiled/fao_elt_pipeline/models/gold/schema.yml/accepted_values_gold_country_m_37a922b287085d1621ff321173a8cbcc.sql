@@ -8,7 +8,7 @@ with all_values as (
         producer_category as value_field,
         count(*) as n_records
 
-    from "fao"."public_gold"."gold_country_metrics"
+    from "fao"."public"."gold_country_metrics"
     group by producer_category
 
 )

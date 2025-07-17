@@ -8,7 +8,7 @@ with all_values as (
         regional_scale as value_field,
         count(*) as n_records
 
-    from "fao"."public_gold"."gold_regional_summary"
+    from "fao"."public"."gold_regional_summary"
     group by regional_scale
 
 )

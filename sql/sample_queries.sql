@@ -29,7 +29,7 @@ SELECT
     country_name_standardized,
     COUNT(DISTINCT item_name) as product_count,
     ROUND(AVG(price_value), 2) as avg_price
-FROM silver.silver_prices_cleaned
+FROM silver_prices_cleaned
 WHERE is_valid_price = TRUE
 GROUP BY 1
 ORDER BY 2 DESC
@@ -41,7 +41,7 @@ SELECT
     item_name,
     ROUND(AVG(price_value), 2) as avg_global_price,
     COUNT(DISTINCT country_name_standardized) as countries_reporting
-FROM silver.silver_prices_cleaned
+FROM silver_prices_cleaned
 WHERE item_name LIKE '%Wheat%'
   AND is_valid_price = TRUE
 GROUP BY 1, 2
@@ -50,7 +50,7 @@ ORDER BY 1;
 -- Countries with highest production diversity
 SELECT
     *
-FROM silver.silver_top_countries
+FROM silver_top_countries
 WHERE is_diverse_producer = TRUE
 ORDER BY product_diversity DESC
 LIMIT 10;
@@ -67,7 +67,7 @@ SELECT
     TO_CHAR(total_production_metric_tons, 'FM999,999,999,999') as total_production,
     TO_CHAR(avg_annual_production_metric_tons, 'FM999,999,999') as avg_annual_production,
     years_with_data
-FROM gold.gold_country_metrics
+FROM gold_country_metrics
 ORDER BY total_production_metric_tons DESC
 LIMIT 15;
 
@@ -79,7 +79,7 @@ SELECT
     TO_CHAR(total_market_value, 'FM$999,999,999,999') as total_market_value,
     TO_CHAR(avg_price_all_years, 'FM$999,999.99') as avg_price_per_tonne,
     avg_producing_countries
-FROM gold.gold_price_production_analysis
+FROM gold_price_production_analysis
 WHERE total_market_value IS NOT NULL
 ORDER BY total_market_value DESC
 LIMIT 10;
@@ -96,7 +96,7 @@ SELECT
         ELSE '→ Stable'
     END as growth_trend,
     total_producing_countries
-FROM gold.gold_regional_summary
+FROM gold_regional_summary
 ORDER BY total_production_metric_tons DESC;
 
 -- 4. High-value countries (high prices, lower production)
@@ -106,8 +106,8 @@ SELECT
     gcm.total_production_metric_tons,
     gcm.price_category,
     stc.is_high_price_country
-FROM gold.gold_country_metrics gcm
-JOIN silver.silver_top_countries stc
+FROM gold_country_metrics gcm
+JOIN silver_top_countries stc
     ON gcm.country_name = stc.country_name
 WHERE gcm.price_category = 'High Value'
   AND gcm.producer_category != 'Major Producer'
@@ -125,7 +125,7 @@ WITH commodity_concentration AS (
             WHEN avg_producing_countries < 30 THEN 'Moderately Concentrated'
             ELSE 'Widely Distributed'
         END as market_concentration
-    FROM gold.gold_price_production_analysis
+    FROM gold_price_production_analysis
     WHERE years_with_data >= 10
 )
 SELECT
@@ -152,7 +152,7 @@ SELECT
     MAX(year) as last_year,
     COUNT(DISTINCT year) as years_covered,
     COUNT(*) as total_records
-FROM silver.silver_prices_cleaned
+FROM silver_prices_cleaned
 UNION ALL
 SELECT
     'Production' as data_type,
@@ -160,7 +160,7 @@ SELECT
     MAX(year) as last_year,
     COUNT(DISTINCT year) as years_covered,
     COUNT(*) as total_records
-FROM silver.silver_production_cleaned;
+FROM silver_production_cleaned;
 
 -- Data quality summary
 SELECT
@@ -168,11 +168,11 @@ SELECT
     COUNT(*) as total_records,
     SUM(CASE WHEN is_valid_price THEN 1 ELSE 0 END) as valid_records,
     ROUND(100.0 * SUM(CASE WHEN is_valid_price THEN 1 ELSE 0 END) / COUNT(*), 2) as quality_percentage
-FROM silver.silver_prices_cleaned
+FROM silver_prices_cleaned
 UNION ALL
 SELECT
     'Production' as layer,
     COUNT(*) as total_records,
     SUM(CASE WHEN is_valid_production THEN 1 ELSE 0 END) as valid_records,
     ROUND(100.0 * SUM(CASE WHEN is_valid_production THEN 1 ELSE 0 END) / COUNT(*), 2) as quality_percentage
-FROM silver.silver_production_cleaned;
+FROM silver_production_cleaned;

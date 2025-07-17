@@ -29,7 +29,9 @@ SELECT
     
     md5(
             coalesce(cast(area_code as varchar), '') || '-' || 
+            coalesce(cast(element_code as varchar), '') || '-' || 
             coalesce(cast(item_code as varchar), '') || '-' || 
+            coalesce(cast(value as varchar), '') || '-' || 
             coalesce(cast(year as varchar), '')
     )
  as price_id,

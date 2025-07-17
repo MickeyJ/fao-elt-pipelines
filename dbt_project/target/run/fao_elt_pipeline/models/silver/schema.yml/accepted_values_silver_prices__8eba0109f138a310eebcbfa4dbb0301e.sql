@@ -1,12 +1,9 @@
-
-    select
+select
       count(*) as failures,
       count(*) != 0 as should_warn,
       count(*) != 0 as should_error
     from (
       
-    
-  
     
     
 
@@ -16,7 +13,7 @@ with all_values as (
         is_valid_price as value_field,
         count(*) as n_records
 
-    from "fao"."public_silver"."silver_prices_cleaned"
+    from "fao"."public"."silver_prices_cleaned"
     group by is_valid_price
 
 )
@@ -29,7 +26,5 @@ where value_field not in (
 
 
 
-  
-  
       
     ) dbt_internal_test

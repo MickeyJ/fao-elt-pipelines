@@ -7,8 +7,9 @@ python-dotenv
 sqlalchemy
 
 # dbt
-dbt-core
-dbt-postgres
+dbt-core==1.8.0
+dbt-adapters==1.1.1
+dbt-postgres==1.8.0
 
 # Orchestration
 prefect

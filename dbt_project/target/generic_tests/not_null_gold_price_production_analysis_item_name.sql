@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="item_name", model=get_where_subquery(ref('gold_price_production_analysis'))) }}

@@ -62,12 +62,6 @@ class FAOApiClient:
         logger.info(f"Fetched {len(all_data)} records in total")
         return all_data
 
-    def fetch_prices_data(self, max_pages: int = 3) -> list[dict]:
+    def fetch_endpoint_data(self, endpoint: str, max_pages: int = 3) -> list[dict]:
         """Fetch producer prices data."""
-        endpoint = "/prices/prices/?element_code=5532&element=&flag=A&sort=year%2Citem_code"
-        return self.fetch_data(endpoint, max_pages)
-
-    def fetch_food_balance_data(self, max_pages: int = 3) -> list[dict]:
-        """Fetch food balance sheets data."""
-        endpoint = "/food/food_balance_sheets/?element_code=5511&flag=&sort=year%2Citem_code"
         return self.fetch_data(endpoint, max_pages)

@@ -1,12 +1,9 @@
-
-    select
+select
       count(*) as failures,
       count(*) != 0 as should_warn,
       count(*) != 0 as should_error
     from (
       
-    
-  
     
     
 
@@ -16,7 +13,7 @@ with all_values as (
         price_tier as value_field,
         count(*) as n_records
 
-    from "fao"."public_gold"."gold_price_production_analysis"
+    from "fao"."public"."gold_price_production_analysis"
     group by price_tier
 
 )
@@ -29,7 +26,5 @@ where value_field not in (
 
 
 
-  
-  
       
     ) dbt_internal_test

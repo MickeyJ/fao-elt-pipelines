@@ -2,7 +2,7 @@
   
     
 
-  create  table "fao"."public_gold"."gold_country_metrics__dbt_tmp"
+  create  table "fao"."public"."gold_country_metrics__dbt_tmp"
   
   
     as
@@ -17,7 +17,7 @@ WITH country_production AS (
         year,
         SUM(production_metric_tons) as annual_production,
         COUNT(DISTINCT item_code) as products_produced
-    FROM "fao"."public_silver"."silver_production_cleaned"
+    FROM "fao"."public"."silver_production_cleaned"
     WHERE is_valid_production = TRUE
     GROUP BY country_name_standardized, area_code, year
 ),
@@ -29,7 +29,7 @@ country_prices AS (
         year,
         AVG(price_value) as avg_annual_price,
         COUNT(DISTINCT item_code) as products_priced
-    FROM "fao"."public_silver"."silver_prices_cleaned"
+    FROM "fao"."public"."silver_prices_cleaned"
     WHERE is_valid_price = TRUE
     GROUP BY country_name_standardized, area_code, year
 ),

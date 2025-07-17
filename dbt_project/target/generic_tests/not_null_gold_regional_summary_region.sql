@@ -1,0 +1,1 @@
+{{ test_not_null(column_name="region", model=get_where_subquery(ref('gold_regional_summary'))) }}

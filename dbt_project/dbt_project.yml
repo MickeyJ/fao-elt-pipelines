@@ -20,21 +20,15 @@ clean-targets:
 # Model configurations
 models:
   fao_elt_pipeline:
-    # Bronze layer configs
-    bronze:
-      +materialized: view
-      +schema: bronze
 
     # Silver layer configs
     silver:
       +materialized: table
-      +schema: silver
       +tags: ['silver']
 
     # Gold layer configs
     gold:
       +materialized: table
-      +schema: gold
       +tags: ['gold']
 
 # Test configurations

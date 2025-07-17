@@ -28,10 +28,10 @@ WITH country_regions AS (
         END as region
     FROM (
         SELECT DISTINCT country_name_standardized, area_code
-        FROM "fao"."public_silver"."silver_production_cleaned"
+        FROM "fao"."public"."silver_production_cleaned"
         UNION
         SELECT DISTINCT country_name_standardized, area_code
-        FROM "fao"."public_silver"."silver_prices_cleaned"
+        FROM "fao"."public"."silver_prices_cleaned"
     ) countries
 ),
 
@@ -43,7 +43,7 @@ regional_production AS (
         SUM(p.production_metric_tons) as regional_production,
         COUNT(DISTINCT p.area_code) as countries_producing,
         AVG(p.production_metric_tons) as avg_country_production
-    FROM "fao"."public_silver"."silver_production_cleaned" p
+    FROM "fao"."public"."silver_production_cleaned" p
     JOIN country_regions cr
         ON p.country_name_standardized = cr.country_name_standardized
     WHERE p.is_valid_production = TRUE
@@ -59,7 +59,7 @@ regional_prices AS (
         MAX(pr.price_value) as max_regional_price,
         MIN(pr.price_value) as min_regional_price,
         COUNT(DISTINCT pr.area_code) as countries_with_prices
-    FROM "fao"."public_silver"."silver_prices_cleaned" pr
+    FROM "fao"."public"."silver_prices_cleaned" pr
     JOIN country_regions cr
         ON pr.country_name_standardized = cr.country_name_standardized
     WHERE pr.is_valid_price = TRUE
