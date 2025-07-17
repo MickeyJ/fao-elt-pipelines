@@ -1,1 +1,0 @@
-{{ test_unique(column_name="production_id", model=get_where_subquery(ref('silver_production_cleaned'))) }}

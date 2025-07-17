@@ -1,1 +1,0 @@
-{{ test_accepted_values(column_name="production_trend", model=get_where_subquery(ref('gold_country_metrics')), values=["Growing","Declining","Stable"]) }}

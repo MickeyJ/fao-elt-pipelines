@@ -30,7 +30,7 @@ endif
 
 .PHONY: all venv env-status install-init install install-update install-requirements \
 pg-start pg-stop pg-shell pg-logs pipeline-full pipeline-quick validate-setup validate-pipeline \
-test-dbt test-queries test-gold-layer dbt-run dbt-docs dbt-debug clean-cache reset-database \
+test-dbt test-queries test-gold-layer dbt-run dbt-docs dbt-debug dbt-serve clean-cache reset-database \
 reset-all help
 
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
@@ -115,14 +115,17 @@ test-gold-layer:
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
 #  		dbt Commands
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
+dbt-serve:
+	sh ./dbt.sh docs serve
+
 dbt-run:
-	cd dbt_project && dbt run
+	sh ./dbt.sh run
 
 dbt-docs:
-	cd dbt_project && dbt docs generate && dbt docs serve
+	sh ./dbt.sh docs generate && sh ./dbt.sh docs serve
 
 dbt-debug:
-	cd dbt_project && dbt debug
+	sh ./dbt.sh debug
 
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-
 #  		Cleanup/Reset Commands
@@ -130,15 +133,15 @@ dbt-debug:
 clean-cache:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete
-	cd dbt_project && dbt clean
+	sh ./dbt.sh clean
 
 reset-database:
 	docker exec fao_postgres psql -U $(LOCAL_DB_USER) -d $(LOCAL_DB_NAME) -c \
 		"TRUNCATE bronze.raw_prices, bronze.raw_food_balance CASCADE;"
 	@echo "✅ Database tables cleared"
 
-reset-all: stop-postgres
-	docker volume rm fao-elt-pipeline_postgres_data || true
+reset-all: pg-stop
+	docker volume rm fao-elt-pipelines_postgres_data || true
 	@echo "✅ Database volume removed"
 
 # =-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-

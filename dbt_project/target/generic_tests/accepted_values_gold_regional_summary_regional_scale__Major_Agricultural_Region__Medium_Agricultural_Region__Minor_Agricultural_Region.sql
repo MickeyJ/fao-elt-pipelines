@@ -1,1 +1,0 @@
-{{ test_accepted_values(column_name="regional_scale", model=get_where_subquery(ref('gold_regional_summary')), values=["Major Agricultural Region","Medium Agricultural Region","Minor Agricultural Region"]) }}

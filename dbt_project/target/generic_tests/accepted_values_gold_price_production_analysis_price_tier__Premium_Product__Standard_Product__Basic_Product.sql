@@ -1,1 +1,0 @@
-{{ test_accepted_values(column_name="price_tier", model=get_where_subquery(ref('gold_price_production_analysis')), values=["Premium Product","Standard Product","Basic Product"]) }}

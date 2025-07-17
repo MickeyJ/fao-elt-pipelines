@@ -1,1 +1,0 @@
-{{ test_not_null(column_name="price_id", model=get_where_subquery(ref('silver_prices_cleaned'))) }}

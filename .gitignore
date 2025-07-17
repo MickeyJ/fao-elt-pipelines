@@ -8,3 +8,16 @@ __pycache__/
 .idea/
 .cursor/
 requirements.txt
+
+# dbt
+dbt_project/dbt_packages
+dbt_project/dbt_internal_packages
+dbt_project/logs
+dbt_project/target
+dbt_project/.user.yml
+
+# dbt artifacts that get regenerated
+dbt_project/manifest.json
+dbt_project/run_results.json
+dbt_project/catalog.json
+

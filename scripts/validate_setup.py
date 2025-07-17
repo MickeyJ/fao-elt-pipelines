@@ -181,7 +181,7 @@ def main():
     if passed == total:
         print(f"✅ All checks passed ({passed}/{total})")
         print("\nYour environment is ready! Run:")
-        print("  python orchestration/elt_pipeline.py")
+        print("  make pipeline-full")
     else:
         print(f"❌ Some checks failed ({passed}/{total} passed)")
         print("\nPlease fix the issues above before running the pipeline.")
