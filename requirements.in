@@ -5,6 +5,7 @@ pandas
 psycopg2-binary
 python-dotenv
 sqlalchemy
+openpyxl
 
 # dbt
 dbt-core==1.8.0
